@@ -3,7 +3,9 @@ import './App.css'
 
 function App() {
   return <>
-  <h1>Aslam alikum</h1>
+  <h1>React Todo App</h1>
+  <input />
+  <button>Add</button>
   </>
 }
 
