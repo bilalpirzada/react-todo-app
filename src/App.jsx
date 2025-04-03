@@ -3,9 +3,9 @@ import './App.css'
 
 function App() {
   return <>
-  <h1>React Todo App</h1>
-  <input />
-  <button>Add</button>
+  <h1 className=''>React Todo App</h1>
+  <input value={"bilal"} className=""/>
+  <button className="text-4xl">Add</button>
   </>
 }
 
