@@ -37,12 +37,18 @@ function App() {
   </div>
   
   
-    <ol className='mt-10 flex justify-start'>
+    <ul className='mt-10 flex flex-col'>
     
     {tasksArray.map((task,index)=>{
-       return <li key={index}>{task}</li>
+       return <li key={index} className='text-2xl mb-3 flex justify-between items-center bg-slate-900 p-5 rounded-2xl'>
+        <div className='inline-block'>{task}</div>
+        <div className='inline-block'>
+          <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button>
+          <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2'>Delete</button>
+        </div>
+        </li>
     })}
-    </ol>
+    </ul>
 
   </>
 }
