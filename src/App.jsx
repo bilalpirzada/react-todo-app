@@ -18,6 +18,12 @@ function App() {
     console.log(tasksArray);
   }
 
+  function handleDelete(indexToDelete){
+    let updatedTasks = tasksArray.filter((_,index)=>index!==indexToDelete);
+
+    setTasksArray(updatedTasks);
+  }
+
   return <>
   <h1 
     className=" text-green-400 mb-20">
@@ -44,7 +50,7 @@ function App() {
         <div className='inline-block'>{task}</div>
         <div className='inline-block'>
           <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button>
-          <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2'>Delete</button>
+          <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2' onClick={()=>handleDelete(index)}>Delete</button>
         </div>
         </li>
     })}
