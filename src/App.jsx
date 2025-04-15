@@ -59,7 +59,7 @@ function App() {
   </div>
   
   
-    <ul className='mt-10 flex flex-col'>
+    <ul className='mt-10 flex flex-col bg-[#2C2C2C] px-5 pt-5 pb-3 rounded-2xl'>
     
     {tasksArray.map((task,index)=>{
        return <li key={index} className='text-2xl mb-3 flex justify-between items-center bg-[#f5f5f522] p-5 rounded-2xl'>
