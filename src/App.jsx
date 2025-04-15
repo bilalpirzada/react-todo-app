@@ -40,10 +40,10 @@ function App() {
   return <>
   <h1 
     className="mb-2">
-    Daily Done
+     Daily Done 
   </h1>
   <p className='mb-20'>
-  Turn plans into progress.
+  🟢 Make every day a done day
   </p>
   <div>
     <input 
