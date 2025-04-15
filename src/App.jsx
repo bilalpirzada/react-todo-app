@@ -63,16 +63,22 @@ function App() {
         
         
         <div 
-          className='inline-block'>
+          className='inline-block'
+          style={
+            {
+              textDecoration: task.checked ? 'line-through' : 'none'
+            }
+          }>
             <input 
             type='checkbox' 
             onChange={()=>handleCheckbox(index)} 
             checked={task.checked} 
-            className='mr-3 h-6 w-6'/>
+            className='mr-3 h-6 w-6'
+            />
             {task.taskName}
         </div>
         <div className='inline-block'>
-          <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button>
+          {/* <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button> */}
           <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2' onClick={()=>handleDelete(index)}>Delete</button>
         </div>
         </li>
