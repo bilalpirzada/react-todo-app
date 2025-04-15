@@ -12,9 +12,11 @@ function App() {
 
   function handleAddTask(){
     if(taskInput){
-      setTasksArray((prevTasks)=>{return [...prevTasks,taskInput]});
-      setTaskInput(""); // clear task input after adding 
+      setTasksArray((prevTasks)=>{return [...prevTasks,{'taskName':taskInput,'checked':false}]});
     }
+    
+
+    setTaskInput(""); // clear task input after adding 
     console.log(tasksArray);
   }
 
@@ -22,6 +24,17 @@ function App() {
     let updatedTasks = tasksArray.filter((_,index)=>index!==indexToDelete);
 
     setTasksArray(updatedTasks);
+  }
+
+  function handleCheckbox(checkboxIndex){
+    setTasksArray(prevTasks => {
+      let updatedTask = [...prevTasks]
+      updatedTask[checkboxIndex]={
+        taskName: updatedTask[checkboxIndex].taskName,
+        checked: !updatedTask[checkboxIndex].checked
+      };
+      return updatedTask;
+    })
   }
 
   return <>
@@ -47,7 +60,17 @@ function App() {
     
     {tasksArray.map((task,index)=>{
        return <li key={index} className='text-2xl mb-3 flex justify-between items-center bg-slate-900 p-5 rounded-2xl'>
-        <div className='inline-block'>{task}</div>
+        
+        
+        <div 
+          className='inline-block'>
+            <input 
+            type='checkbox' 
+            onChange={()=>handleCheckbox(index)} 
+            checked={task.checked} 
+            className='mr-3 h-6 w-6'/>
+            {task.taskName}
+        </div>
         <div className='inline-block'>
           <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button>
           <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2' onClick={()=>handleDelete(index)}>Delete</button>
