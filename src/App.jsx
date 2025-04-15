@@ -52,9 +52,9 @@ function App() {
       className="bg-amber-50 rounded-4xl py-4 text-gray-800 w-100 px-6 text-xl"
     />
     <button 
-      className="ml-5 px-8 py-4 bg-[#27AE60] rounded-4xl" 
+      className="ml-2 px-5 py-4 bg-[#27AE60] rounded-4xl" 
       onClick={handleAddTask}>
-        Add
+        ╋
     </button>
   </div>
   
