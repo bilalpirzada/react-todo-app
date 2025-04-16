@@ -37,6 +37,12 @@ function App() {
     })
   }
 
+  function handleKeyDown(event){
+    if(event.key==='Enter'){
+      handleAddTask();
+    }
+  }
+
   return <>
   <h1 
     className="mb-2">
@@ -48,7 +54,8 @@ function App() {
   <div className='mb-5'>
     <input 
       value={taskInput} 
-      onChange={handleInput} 
+      onChange={handleInput}
+      onKeyDown={handleKeyDown} 
       className="bg-amber-50 rounded-4xl py-4 text-gray-800 w-100 px-6 text-xl"
     />
     <button 
