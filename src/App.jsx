@@ -52,10 +52,10 @@ function App() {
       value={taskInput} 
       onChange={handleInput}
       onKeyDown={handleKeyDown} 
-      className="bg-amber-50 rounded-4xl py-4 text-gray-800 w-100 px-6 text-xl"
+      className="bg-amber-50 rounded-4xl py-2 text-gray-800 w-100 px-4"
     />
     <button 
-      className="ml-2 px-5 py-4 bg-[#27AE60] rounded-4xl" 
+      className="ml-2 px-3.5 py-2.5 bg-[#27AE60] rounded-4xl hover:cursor-pointer hover:scale-105" 
       onClick={handleAddTask}>
         ╋
     </button>

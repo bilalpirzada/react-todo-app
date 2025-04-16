@@ -1,11 +1,11 @@
 export function Header(){
-  return  <header>
+  return  <header className='mb-20'>
   <h1 
     className="mb-2">
-    Daily Done 
+    Daily D<span className="text-3xl">🟢</span>ne 
   </h1>
-  <p className='mb-20'>
-  🟢 Make every day a done day
+  <p>
+  <span className="animate-pulse">🟢</span> Make every day a done day
   </p>
 </header>
 }
