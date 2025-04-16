@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import {Header} from './Components/Header.jsx'
 
 function App() {
   let [taskInput, setTaskInput] = useState(""); 
@@ -44,13 +45,8 @@ function App() {
   }
 
   return <>
-  <h1 
-    className="mb-2">
-     Daily Done 
-  </h1>
-  <p className='mb-20'>
-  🟢 Make every day a done day
-  </p>
+ <Header/>
+  
   <div className='mb-5'>
     <input 
       value={taskInput} 
