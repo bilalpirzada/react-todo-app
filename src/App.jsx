@@ -73,7 +73,7 @@ function App() {
         
         
         <div 
-          className='inline-block'
+          className='flex justify-center items-center'
           style={
             {
               textDecoration: task.checked ? 'line-through' : 'none'
