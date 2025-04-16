@@ -45,7 +45,7 @@ function App() {
   <p className='mb-20'>
   🟢 Make every day a done day
   </p>
-  <div>
+  <div className='mb-5'>
     <input 
       value={taskInput} 
       onChange={handleInput} 
@@ -59,10 +59,10 @@ function App() {
   </div>
   
   
-    <ul className='mt-10 flex flex-col bg-[#2C2C2C] px-5 pt-5 pb-3 rounded-2xl'>
+    <ul className={'mt-10 flex flex-col bg-[#2C2C2C] rounded-2xl' + tasksArray.length>0?'px-5 pt-5 pb-3':''}>
     
     {tasksArray.map((task,index)=>{
-       return <li key={index} className='text-2xl mb-3 flex justify-between items-center bg-[#f5f5f522] p-5 rounded-2xl'>
+       return <li key={index} className='text-xl mb-3 flex justify-between items-center bg-[#f5f5f522] p-5 rounded-2xl'>
         
         
         <div 
