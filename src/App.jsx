@@ -73,19 +73,21 @@ function App() {
         
         
         <div 
-          className='flex justify-center items-center'
+        className='w-full flex justify-start'
           style={
             {
               textDecoration: task.checked ? 'line-through' : 'none'
             }
           }>
-            <input 
-            type='checkbox' 
-            onChange={()=>handleCheckbox(index)} 
-            checked={task.checked} 
-            className='mr-3 h-6 w-6'
-            />
-            {task.taskName}
+            <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-1 rounded-xl hover:cursor-pointer'>
+              <input 
+              type='checkbox' 
+              onChange={()=>handleCheckbox(index)} 
+              checked={task.checked} 
+              className='mr-3 h-6 w-6'
+              />
+              {task.taskName}
+            </label>
         </div>
         <div className='inline-block'>
           {/* <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button> */}
