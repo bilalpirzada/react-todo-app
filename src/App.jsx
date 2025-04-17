@@ -47,6 +47,7 @@ function App() {
   return <>
  <Header/>
   
+  {/* input */}
   <div className='mb-5'>
     <input 
       value={taskInput} 
@@ -61,11 +62,11 @@ function App() {
     </button>
   </div>
   
-  
+  {/* rendering list */}
     <ul className={'mt-10 flex flex-col bg-[#2C2C2C] rounded-2xl' + tasksArray.length>0?'px-5 pt-5 pb-3':''}>
     
     {tasksArray.map((task,index)=>{
-       return <li key={index} className='text-xl mb-3 flex justify-between items-center bg-[#f5f5f522] p-5 rounded-2xl'>
+       return <li key={index} className='mb-3 flex justify-between items-center bg-[#f5f5f522] p-1 rounded-xl'>
         
         
         <div 
@@ -75,7 +76,7 @@ function App() {
               textDecoration: task.checked ? 'line-through' : 'none'
             }
           }>
-            <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-1 rounded-xl hover:cursor-pointer'>
+            <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-3 rounded-xl hover:cursor-pointer'>
               <input 
               type='checkbox' 
               onChange={()=>handleCheckbox(index)} 
@@ -87,7 +88,7 @@ function App() {
         </div>
         <div className='inline-block'>
           {/* <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button> */}
-          <button className='bg-red-400 rounded-2xl px-4 py-2 ml-2' onClick={()=>handleDelete(index)}>🗑</button>
+          <button className='bg-red-400 rounded-xl px-3 py-2 ml-2 hover:cursor-pointer hover:bg-red-500' onClick={()=>handleDelete(index)}>🗑</button>
         </div>
         </li>
     })}

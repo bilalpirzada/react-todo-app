@@ -5,7 +5,7 @@ export function Header(){
     Daily D<span className="text-3xl">🟢</span>ne 
   </h1>
   <p>
-  <span className="animate-pulse">🟢</span> Make every day a done day
+  <span>🟢</span> Make every day a done day
   </p>
 </header>
 }
