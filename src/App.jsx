@@ -86,9 +86,10 @@ function App() {
               {task.taskName}
             </label>
         </div>
-        <div className='inline-block'>
-          {/* <button className='bg-blue-400 rounded-2xl px-4 py-2'>Edit</button> */}
-          <button className='bg-red-500 rounded-xl px-3 py-2 ml-5 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleDelete(index)}>🗑</button>
+
+        <div className='flex justify-center items-center'>
+          <button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'>✎</button>
+          <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleDelete(index)}>🗑</button>
         </div>
         </li>
     })}
