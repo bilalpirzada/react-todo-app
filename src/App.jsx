@@ -99,7 +99,7 @@ function App() {
               textDecoration: task.checked ? 'line-through' : 'none'
             }
           }>
-            {task.editing?<input autoFocus={true} value={editingTaskName} onChange={handleEditingTask} className='bg-[#f5f5f520] p-3 rounded-xl w-full mr-5'/>:
+            {task.editing?<input autoFocus={true} onBlur={()=>handleOnClickEdit(index)} value={editingTaskName} onChange={handleEditingTask} className='bg-[#f5f5f520] p-3 rounded-xl w-full mr-5'/>:
               <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-3 rounded-xl hover:cursor-pointer mr-5'>
               <input 
               type='checkbox' 
