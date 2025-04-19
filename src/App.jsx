@@ -5,6 +5,8 @@ import {Header} from './Components/Header.jsx'
 function App() {
   let [taskInput, setTaskInput] = useState(""); 
   let [tasksArray, setTasksArray] = useState([]);
+  let [editingTaskName, setEditingTaskName] = useState('');
+
 
 
   function handleInput(event){
@@ -13,7 +15,7 @@ function App() {
 
   function handleAddTask(){
     if(taskInput){
-      setTasksArray((prevTasks)=>{return [...prevTasks,{'taskName':taskInput,'checked':false}]});
+      setTasksArray((prevTasks)=>{return [...prevTasks,{'taskName':taskInput,'checked':false, 'editing':false}]});
     }
     
 
@@ -43,6 +45,27 @@ function App() {
       handleAddTask();
     }
   }
+
+  function handleOnClickEdit(index){
+    setTasksArray(prevTasks => {
+     let updatedTasks= [...prevTasks];
+
+     updatedTasks[index]={
+      taskName:updatedTasks[index].taskName,
+      checked:updatedTasks[index].checked,
+      editing:!updatedTasks[index].editing
+     }
+
+     setEditingTaskName(updatedTasks[index].taskName);
+
+     return updatedTasks;
+    })
+  }
+
+  function handleEditingTask(event){
+    setEditingTaskName(event.target.value)
+  }
+ 
 
   return <>
  <Header/>
@@ -76,19 +99,22 @@ function App() {
               textDecoration: task.checked ? 'line-through' : 'none'
             }
           }>
-            <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-3 rounded-xl hover:cursor-pointer'>
+            {task.editing?<input autoFocus={true} value={editingTaskName} onChange={handleEditingTask} className='bg-[#f5f5f520] p-3 rounded-xl w-full mr-5'/>:
+              <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-3 rounded-xl hover:cursor-pointer mr-5'>
               <input 
               type='checkbox' 
               onChange={()=>handleCheckbox(index)} 
               checked={task.checked} 
-              className='mr-3 h-6 w-6'
+              className='mr-3 h-6 w-6 hover:cursor-pointer hover:scale-110 hover:bg-[#27AE60]'
               />
               {task.taskName}
-            </label>
+            </label>}
+    
         </div>
 
         <div className='flex justify-center items-center'>
-          <button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'>✎</button>
+          <button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'
+          onClick={()=>handleOnClickEdit(index)}>✎</button>
           <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleDelete(index)}>🗑</button>
         </div>
         </li>
