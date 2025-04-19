@@ -62,10 +62,37 @@ function App() {
     })
   }
 
+  function handleOnClickCancelEditing(index){
+    setTasksArray(prevTasks => {
+      let updatedTasks= [...prevTasks];
+ 
+      updatedTasks[index]={
+       taskName:updatedTasks[index].taskName,
+       checked:updatedTasks[index].checked,
+       editing:!updatedTasks[index].editing
+      }
+ 
+      return updatedTasks;
+     })
+  }
+
   function handleEditingTask(event){
     setEditingTaskName(event.target.value)
   }
  
+  function handleUpdateTask(index){
+    setTasksArray(prevTasks => {
+      let updatedTasks= [...prevTasks];
+ 
+      updatedTasks[index]={
+       taskName:editingTaskName,
+       checked:updatedTasks[index].checked,
+       editing:!updatedTasks[index].editing
+      }
+ 
+      return updatedTasks;
+     })
+  }
 
   return <>
  <Header/>
@@ -99,7 +126,7 @@ function App() {
               textDecoration: task.checked ? 'line-through' : 'none'
             }
           }>
-            {task.editing?<input autoFocus={true} onBlur={()=>handleOnClickEdit(index)} value={editingTaskName} onChange={handleEditingTask} className='bg-[#f5f5f520] p-3 rounded-xl w-full mr-5'/>:
+            {task.editing?<input autoFocus={true} value={editingTaskName} onChange={handleEditingTask} className='bg-[#f5f5f520] p-3 rounded-xl w-full mr-5'/>:
               <label  className='flex justify-start items-center hover:bg-[#f5f5f536] w-full p-3 rounded-xl hover:cursor-pointer mr-5'>
               <input 
               type='checkbox' 
@@ -113,9 +140,16 @@ function App() {
         </div>
 
         <div className='flex justify-center items-center'>
+          {task.editing?
+          <><button className='bg-[#27AE60] rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-[#27AE6090]'
+          onClick={()=>handleUpdateTask(index)}>✔</button>
+          <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleOnClickCancelEditing(index)}>✖</button></>
+          
+          :<>
           <button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'
           onClick={()=>handleOnClickEdit(index)}>✎</button>
           <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleDelete(index)}>🗑</button>
+          </>}
         </div>
         </li>
     })}
