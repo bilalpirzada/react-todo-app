@@ -146,8 +146,8 @@ function App() {
           <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleOnClickCancelEditing(index)}>✖</button></>
           
           :<>
-          <button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'
-          onClick={()=>handleOnClickEdit(index)}>✎</button>
+          {!task.checked?<button className='bg-blue-400 rounded-xl px-3 py-2 hover:cursor-pointer hover:bg-blue-500'
+          onClick={()=>handleOnClickEdit(index)}>✎</button>:''}
           <button className='bg-red-500 rounded-xl px-3 py-2 ml-2 mr-2 hover:cursor-pointer hover:bg-[#C0392B]' onClick={()=>handleDelete(index)}>🗑</button>
           </>}
         </div>
