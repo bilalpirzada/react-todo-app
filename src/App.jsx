@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import {Header} from './Components/Header.jsx'
 
@@ -7,6 +7,25 @@ function App() {
   let [tasksArray, setTasksArray] = useState([]);
   let [editingTaskName, setEditingTaskName] = useState('');
 
+  // Timer interval ref
+  const intervalRef = useRef(null);
+
+  // Start/stop timer effect
+  useEffect(() => {
+    // Clear any previous interval
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    // Start interval
+    intervalRef.current = setInterval(() => {
+      setTasksArray(prevTasks =>
+        prevTasks.map(task =>
+          !task.checked && task.timerRunning
+            ? { ...task, timer: (task.timer || 0) + 1 }
+            : task
+        )
+      );
+    }, 1000);
+    return () => clearInterval(intervalRef.current);
+  }, []);
 
 
   function handleInput(event){
@@ -15,7 +34,7 @@ function App() {
 
   function handleAddTask(){
     if(taskInput){
-      setTasksArray((prevTasks)=>{return [...prevTasks,{'taskName':taskInput,'checked':false, 'editing':false}]});
+      setTasksArray((prevTasks)=>{return [...prevTasks,{'taskName':taskInput,'checked':false, 'editing':false, 'timer': 0, 'timerRunning': false}]});
     }
     
 
@@ -34,7 +53,10 @@ function App() {
       let updatedTask = [...prevTasks]
       updatedTask[checkboxIndex]={
         taskName: updatedTask[checkboxIndex].taskName,
-        checked: !updatedTask[checkboxIndex].checked
+        checked: !updatedTask[checkboxIndex].checked,
+        editing: updatedTask[checkboxIndex].editing,
+        timer: updatedTask[checkboxIndex].timer,
+        timerRunning: updatedTask[checkboxIndex].timerRunning
       };
       return updatedTask;
     })
@@ -94,6 +116,47 @@ function App() {
      })
   }
 
+  // Timer controls
+  function handleStartTimer(index) {
+    setTasksArray(prevTasks => {
+      let updatedTasks = [...prevTasks];
+      updatedTasks[index] = {
+        ...updatedTasks[index],
+        timerRunning: true
+      };
+      return updatedTasks;
+    });
+  }
+
+  function handleStopTimer(index) {
+    setTasksArray(prevTasks => {
+      let updatedTasks = [...prevTasks];
+      updatedTasks[index] = {
+        ...updatedTasks[index],
+        timerRunning: false
+      };
+      return updatedTasks;
+    });
+  }
+
+  function handleResetTimer(index) {
+    setTasksArray(prevTasks => {
+      let updatedTasks = [...prevTasks];
+      updatedTasks[index] = {
+        ...updatedTasks[index],
+        timer: 0
+      };
+      return updatedTasks;
+    });
+  }
+
+  // Helper to format seconds as mm:ss
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
   return <>
  <Header/>
   
@@ -135,6 +198,39 @@ function App() {
               className='mr-3 h-6 w-6 hover:cursor-pointer hover:scale-110 hover:bg-[#27AE60]'
               />
               {task.taskName}
+              {/* Timer display */}
+              <span className="ml-4 text-xs text-gray-500">{formatTime(task.timer || 0)}</span>
+              {/* Timer controls */}
+              <span className="ml-4 flex gap-1">
+                <button
+                  className={
+                    `rounded px-2 py-1 text-xs ` +
+                    (task.timerRunning || task.checked
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-green-500 text-white hover:bg-green-600')
+                  }
+                  onClick={e => { e.stopPropagation(); handleStartTimer(index); }}
+                  disabled={task.timerRunning || task.checked}
+                  title="Start"
+                >▶</button>
+                <button
+                  className={
+                    `rounded px-2 py-1 text-xs ` +
+                    (!task.timerRunning || task.checked
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-yellow-400 text-white hover:bg-yellow-600')
+                  }
+                  onClick={e => { e.stopPropagation(); handleStopTimer(index); }}
+                  disabled={!task.timerRunning || task.checked}
+                  title="Stop"
+                >⏸</button>
+                <button
+                  className="bg-gray-400 rounded px-2 py-1 text-xs hover:bg-gray-600"
+                  onClick={e => { e.stopPropagation(); handleResetTimer(index); }}
+                  disabled={task.timer === 0}
+                  title="Reset"
+                >⟲</button>
+              </span>
             </label>}
     
         </div>
