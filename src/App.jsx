@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import {Header} from './Components/Header.jsx'
 import TaskList from './Components/TaskList';
+import ContributionGrid from './Components/Contribution.jsx';
+import CalendarGrid from './Components/CalenderGrid.jsx';
 
 function App() {
   let [taskInput, setTaskInput] = useState(""); 
@@ -252,6 +254,9 @@ function App() {
     })}
     </ul>
 
+
+    {/* <ContributionGrid/> */}
+    <CalendarGrid/> 
   </>
 }
 
