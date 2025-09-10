@@ -25,17 +25,17 @@ const CalendarGrid = () => {
   };
 
   const getColor = (count) => {
-    if (count === 0) return "bg-gray-200";
-    if (count === 1) return "bg-green-200";
-    if (count === 2) return "bg-green-400";
-    if (count === 3) return "bg-green-600";
-    return "bg-green-800"; // all tasks done
+    if (count === 0) return "bg-gray-600";
+    if (count === 1) return "bg-green-900";
+    if (count === 2) return "bg-green-700";
+    if (count === 3) return "bg-green-500";
+    return "bg-green-400"; // all tasks done
   };
 
   const generateCalendar = () => {
     const today = new Date();
     const start = new Date();
-    start.setMonth(start.getMonth() - 2); // last 2 months
+    start.setMonth(start.getMonth() - 6); // last 2 months
     start.setDate(1);
 
     const days = [];
@@ -73,53 +73,8 @@ const CalendarGrid = () => {
   weeks.push(currentWeek);
 
   return (
+    
     <div>
-      <h2 className="text-lg font-semibold mb-4">📅 Contribution Calendar</h2>
-
-      {/* Month headers */}
-      <div className="flex mb-2">
-        {weeks.map((week, wi) => {
-          const firstDay = week[0];
-          const monthLabel =
-            firstDay && firstDay.dateNum <= 7 ? firstDay.month : "";
-          return (
-            <div
-              key={wi}
-              className="flex-1 text-center text-sm font-medium text-gray-600"
-            >
-              {monthLabel}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Calendar grid */}
-      <div className="flex gap-1">
-        {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-1">
-            {Array.from({ length: 7 }).map((_, di) => {
-              const day = week.find((d) => d.weekday === di);
-              return day ? (
-                <div
-                  key={day.key}
-                  className={`w-8 h-8 flex text-black items-center justify-center text-xs rounded cursor-pointer ${getColor(
-                    day.count
-                  )}`}
-                  title={`${day.key}: ${day.count} tasks`}
-                  onClick={() =>
-                    alert(`Open checklist for ${day.key} (tasks: ${day.count})`)
-                  }
-                >
-                  {day.dateNum}
-                </div>
-              ) : (
-                <div key={di} className="w-8 h-8" />
-              );
-            })}
-          </div>
-        ))}
-      </div>
-
       {/* Today’s Checklist */}
       <div className="border p-4 mt-6 rounded-lg">
         <h3 className="font-semibold mb-2">✅ Today’s Tasks</h3>
@@ -137,6 +92,62 @@ const CalendarGrid = () => {
           );
         })}
       </div>
+
+      
+
+      {/* Month headers */}
+      <div className="flex mb-2">
+        {weeks.map((week, wi) => {
+          const firstDay = week[0];
+          let monthLabel = '';
+
+          if(firstDay){
+            const isFirstWeekOfMonth = wi===0 || (weeks[wi - 1][0] && weeks[wi - 1][0].month !== firstDay.month);
+            if(isFirstWeekOfMonth){
+              monthLabel = firstDay.month;
+            }
+          }
+
+           
+          return (
+            <div
+              key={wi}
+              className="flex-1 text-center text-[10px] font-medium text-gray-400 mb-0"
+            >
+              {monthLabel}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Calendar grid */}
+      <div className="flex gap-1 mt-0">
+        {weeks.map((week, wi) => (
+          <div key={wi} className="flex flex-col gap-1">
+            {Array.from({ length: 7 }).map((_, di) => {
+              const day = week.find((d) => d.weekday === di);
+              return day ? (
+                <div
+                  key={day.key}
+                  className={`w-3 h-3 flex text-black items-center justify-center text-[8px] rounded-[2px] cursor-pointer ${getColor(
+                    day.count
+                  )}`}
+                  title={`${day.key}: ${day.count} tasks`}
+                  onClick={() =>
+                    alert(`Open checklist for ${day.key} (tasks: ${day.count})`)
+                  }
+                >
+                  {day.dateNum}
+                </div>
+              ) : (
+                <div key={di} className="w-8 h-8" />
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      
     </div>
   );
 };
